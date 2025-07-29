@@ -84,34 +84,66 @@ body {
   box-shadow: 0 0 0 3px rgba(200, 124, 53, 0.1);
 }
 
-.filter-tabs {
-  display: flex;
+.filter-section {
   margin-top: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid var(--cream);
-}
-
-.filter-tab {
-  flex: 1;
-  padding: 8px 12px;
-  background: var(--cream);
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--primary-blue);
   transition: all 0.3s ease;
 }
 
-.filter-tab.active {
-  background: var(--accent-gold);
-  color: var(--white);
+.filter-section.search-active {
+  opacity: 0.6;
 }
 
-.filter-tab:hover {
+.filter-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-pill {
+  padding: 8px 16px;
+  background: var(--cream);
+  border: 2px solid var(--cream);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-blue);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--primary-blue);
+  transform: none;
+  box-shadow: none;
+}
+
+.filter-pill.active {
   background: var(--accent-gold);
+  border-color: var(--accent-gold);
   color: var(--white);
+  box-shadow: 0 2px 8px rgba(200, 124, 53, 0.3);
+}
+
+.filter-pill:hover:not(:disabled) {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 124, 53, 0.2);
 }
 
 .results-section {

@@ -56,10 +56,26 @@ const MonumentMap = () => {
     loadData();
   }, []);
 
-  const getCurrentData = () => {
+  const getAllData = () => [...monuments, ...ecosystem];
+
+  const getFilteredData = () => {
+    const allData = getAllData();
+    
+    // If there's a search term, search across ALL data regardless of filter
+    if (searchTerm.trim()) {
+      return allData.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) ||
+        (item.type && item.type.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.category && item.category.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (item.location && item.location.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    
+    // If no search term, filter by active category
     switch (activeFilter) {
       case 'monuments': return monuments;
-      case 'ecosystem': return ecosystem;
       case 'patrons': return ecosystem.filter(item => item.type === 'Patron');
       case 'organizations': return ecosystem.filter(item => item.type === 'Organization');
       case 'programs': return ecosystem.filter(item => item.type === 'Program');
@@ -68,11 +84,7 @@ const MonumentMap = () => {
     }
   };
 
-  const filteredData = getCurrentData().filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-  );
+  const filteredData = getFilteredData();
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -114,48 +126,52 @@ const MonumentMap = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search monuments and ecosystem..."
+              placeholder="Search across all monuments, people, and organizations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
-            <div className="filter-tabs">
-              <button
-                className={`filter-tab ${activeFilter === 'monuments' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('monuments')}
-              >
-                Monuments
-              </button>
-              <button
-                className={`filter-tab ${activeFilter === 'ecosystem' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('ecosystem')}
-              >
-                Ecosystem
-              </button>
-              <button
-                className={`filter-tab ${activeFilter === 'patrons' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('patrons')}
-              >
-                Patrons
-              </button>
-              <button
-                className={`filter-tab ${activeFilter === 'organizations' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('organizations')}
-              >
-                Organizations
-              </button>
-              <button
-                className={`filter-tab ${activeFilter === 'programs' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('programs')}
-              >
-                Programs
-              </button>
-              <button
-                className={`filter-tab ${activeFilter === 'concepts' ? 'active' : ''}`}
-                onClick={() => setActiveFilter('concepts')}
-              >
-                Concepts
-              </button>
+            <div className={`filter-section ${searchTerm.trim() ? 'search-active' : ''}`}>
+              <div className="filter-label">
+                {searchTerm.trim() ? 'Browse by type:' : 'Filter results:'}
+              </div>
+              <div className="filter-pills">
+                <button
+                  className={`filter-pill ${activeFilter === 'monuments' ? 'active' : ''}`}
+                  onClick={() => setActiveFilter('monuments')}
+                  disabled={searchTerm.trim()}
+                >
+                  Monuments
+                </button>
+                <button
+                  className={`filter-pill ${activeFilter === 'patrons' ? 'active' : ''}`}
+                  onClick={() => setActiveFilter('patrons')}
+                  disabled={searchTerm.trim()}
+                >
+                  Patrons
+                </button>
+                <button
+                  className={`filter-pill ${activeFilter === 'organizations' ? 'active' : ''}`}
+                  onClick={() => setActiveFilter('organizations')}
+                  disabled={searchTerm.trim()}
+                >
+                  Organizations
+                </button>
+                <button
+                  className={`filter-pill ${activeFilter === 'programs' ? 'active' : ''}`}
+                  onClick={() => setActiveFilter('programs')}
+                  disabled={searchTerm.trim()}
+                >
+                  Programs
+                </button>
+                <button
+                  className={`filter-pill ${activeFilter === 'concepts' ? 'active' : ''}`}
+                  onClick={() => setActiveFilter('concepts')}
+                  disabled={searchTerm.trim()}
+                >
+                  Concepts
+                </button>
+              </div>
             </div>
           </div>
           

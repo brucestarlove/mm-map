@@ -1,29 +1,14 @@
 // Webflow CMS Integration Service
 class WebflowCMS {
-  constructor(apiToken = null, siteId = null) {
-    this.apiToken = apiToken || window.WEBFLOW_API_TOKEN;
-    this.siteId = siteId || window.WEBFLOW_SITE_ID;
-    this.baseUrl = 'https://api.webflow.com';
+  constructor(proxyUrl = null) {
+    // Use proxy URL from window variable or parameter
+    this.proxyUrl = proxyUrl || window.PROXY_API_URL || 'http://localhost:4321/api';
   }
 
-  // Generic method to fetch from any CMS collection
-  async fetchCollection(collectionId, limit = 100) {
-    if (!this.apiToken || !this.siteId) {
-      console.warn('Webflow API credentials not found. Using mock data.');
-      return this.getMockData(collectionId);
-    }
-
+  // Generic method to fetch from proxy API
+  async fetchFromProxy(endpoint) {
     try {
-      const response = await fetch(
-        `${this.baseUrl}/collections/${collectionId}/items?limit=${limit}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${this.apiToken}`,
-            'Accept-Version': '1.0.0',
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      const response = await fetch(`${this.proxyUrl}/${endpoint}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -32,48 +17,52 @@ class WebflowCMS {
       const data = await response.json();
       return data.items || [];
     } catch (error) {
-      console.error('Error fetching from Webflow CMS:', error);
-      return this.getMockData(collectionId);
+      console.error(`Error fetching from proxy API (${endpoint}):`, error);
+      return this.getMockData(endpoint);
     }
   }
 
   // Fetch monuments from CMS
   async fetchMonuments() {
-    const collectionId = window.MONUMENTS_COLLECTION_ID || 'monuments';
-    const items = await this.fetchCollection(collectionId);
+    const items = await this.fetchFromProxy('monuments.json');
     
-    return items.map(item => ({
-      id: item._id,
-      name: item.name || item.Name,
-      status: item.status || item.Status,
-      location: item.location || item.Location,
-      coordinates: this.parseCoordinates(item.coordinates || item.Location),
-      description: item.description || item.Description,
-      year: item.year || item.Year,
-      builtBy: item['built-by'] || item['Built By'],
-      fundedBy: item['funded-by'] || item['Funded By'],
-      conceptualizedBy: item['conceptualized-by'] || item['Conceptualized By'],
-      tags: this.parseTags(item.tags || item.Tags),
-      link: item.link || item.Link
-    }));
+    return items.map(item => {
+      const data = item.fieldData || item;
+      return {
+        id: item.id || item._id,
+        name: data.name || data.Name,
+        status: data.status || data.Status,
+        location: data.location || data.Location,
+        coordinates: this.parseCoordinates(data.coordinates || data.Location),
+        description: data.description || data.Description,
+        year: data.year || data.Year,
+        builtBy: data['built-by'] || data['Built By'],
+        fundedBy: data['funded-by'] || data['Funded By'],
+        conceptualizedBy: data['conceptualized-by'] || data['Conceptualized By'],
+        tags: this.parseTags(data.tags || data.Tags),
+        link: data.link || data.Link || data.website
+      };
+    });
   }
 
   // Fetch ecosystem data from CMS (combines patrons, organizations, programs, concepts)
   async fetchEcosystem() {
-    const collectionId = window.ECOSYSTEM_COLLECTION_ID || 'ecosystem';
-    const items = await this.fetchCollection(collectionId);
+    const items = await this.fetchFromProxy('ecosystem.json');
     
-    return items.map(item => ({
-      id: item._id,
-      name: item.name || item.Name,
-      type: item.type || item.Type,
-      category: item.category || item.Category,
-      association: item.association || item.Association,
-      location: item.location || item.Location,
-      website: item.website || item.Website,
-      description: item.description || item.Description,
-      tags: this.parseTags(item.tags || item.Tags)
-    }));
+    return items.map(item => {
+      const data = item.fieldData || item;
+      return {
+        id: item.id || item._id,
+        name: data.name || data.Name,
+        type: data.type || data.Type,
+        category: data.category || data.Category,
+        association: data.association || data.Association,
+        location: data.location || data.Location,
+        website: data.website || data.Website,
+        description: data.description || data.Description,
+        tags: this.parseTags(data.tags || data.Tags)
+      };
+    });
   }
 
   // Helper method to parse coordinates from location string or coordinate field
@@ -127,7 +116,7 @@ class WebflowCMS {
   }
 
   // Mock data for development/fallback
-  getMockData(collectionId) {
+  getMockData(endpoint) {
     const mockData = {
       monuments: [
         {
@@ -348,6 +337,13 @@ class WebflowCMS {
       ]
     };
 
+    // Map endpoint to collection for mock data
+    const endpointMap = {
+      'monuments.json': 'monuments',
+      'ecosystem.json': 'ecosystem'
+    };
+    
+    const collectionId = endpointMap[endpoint] || endpoint;
     return mockData[collectionId] || [];
   }
 }
