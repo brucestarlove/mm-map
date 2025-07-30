@@ -85,7 +85,7 @@ const MonumentMap = () => {
     // If no search term, filter by active category
     switch (activeFilter) {
       case 'monuments': return monuments;
-      case 'patrons': return ecosystem.filter(item => item.type === 'Patron');
+      case 'patrons': return ecosystem.filter(item => item.type === 'Person');
       case 'organizations': return ecosystem.filter(item => item.type === 'Organization');
       case 'programs': return ecosystem.filter(item => item.type === 'Program');
       case 'concepts': return ecosystem.filter(item => item.type === 'Concept');
@@ -129,7 +129,7 @@ const MonumentMap = () => {
         onClick={() => handleItemClick(item)}
       >
       <h3>{item.name}</h3>
-      {item.type && <p className="item-type">{item.type} - {item.category}</p>}
+      {item.type && <p className="item-type">{item.category}</p>}
       <p>{item.description}</p>
       {item.year && <p className="year">Built: {item.year}</p>}
       {item.association && <p><strong>Association:</strong> {item.association}</p>}
@@ -181,7 +181,7 @@ const MonumentMap = () => {
                   onClick={() => setActiveFilter('patrons')}
                   disabled={searchTerm.trim()}
                 >
-                  Patrons
+                  Persons
                 </button>
                 <button
                   className={`filter-pill ${activeFilter === 'organizations' ? 'active' : ''}`}

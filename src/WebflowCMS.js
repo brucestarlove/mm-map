@@ -99,15 +99,17 @@ class WebflowCMS {
       
       const processedData = items.map(item => {
         const fieldData = item.fieldData || item;
+        const mappedTypes = this.mapTypeAndCategory(fieldData.type, fieldData.category);
+        
         return {
           id: item.id || item._id,
           name: fieldData.name || fieldData.Name,
-          type: fieldData.type || fieldData.Type,
-          category: fieldData.category || fieldData.Category,
+          type: mappedTypes.type,
+          category: mappedTypes.category,
           association: fieldData.association || fieldData.Association,
           location: fieldData.location || fieldData.Location,
           website: fieldData.website || fieldData.Website,
-          description: this.stripHtml(fieldData.description || fieldData.Description || ''),
+          description: this.stripHtml(fieldData.description || fieldData.Description || fieldData.notes || ''),
           tags: this.parseTags(fieldData.tags || fieldData.Tags)
         };
       });
@@ -125,6 +127,29 @@ class WebflowCMS {
   stripHtml(html) {
     if (!html) return '';
     return html.replace(/<[^>]*>/g, '').trim();
+  }
+
+  // Helper method to map type and category IDs to readable names
+  mapTypeAndCategory(typeId, categoryId) {
+    const typeMap = {
+      '4366ebc98f6a5310d65de8fa30194fc3': 'Concept',
+      '22d312e5d5bdb036a439464ba7db1649': 'Program', 
+      '6737f113b6ca753ef687b05fe225fb03': 'Organization',
+      '1f06ba3b3460d24d4fc5a9514218ab36': 'Person'
+    };
+
+    const categoryMap = {
+      '74d298c5fdf925022955774e728ae1f9': 'Concepts',
+      '1c06d86c3ae633dbc20c19e1d1c254e4': 'Programs',
+      '422c7e052591ecf49dad28dc44a1a4c5': 'Organizations',
+      '51843361dbdbe24b3b64462d465f5a9f': 'Patrons',
+      '75a13f4fd7c61b3339c61c0a7612c0d3': 'Founders'
+    };
+
+    return {
+      type: typeMap[typeId] || 'Unknown',
+      category: categoryMap[categoryId] || 'Unknown'
+    };
   }
 
   // Helper method to parse coordinates from location string or coordinate field
