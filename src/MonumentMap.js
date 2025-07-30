@@ -129,7 +129,6 @@ const MonumentMap = () => {
         onClick={() => handleItemClick(item)}
       >
       <h3>{item.name}</h3>
-      {item.type && <p className="item-type">{item.category}</p>}
       <p>{item.description}</p>
       {item.year && <p className="year">Built: {item.year}</p>}
       {item.association && <p><strong>Association:</strong> {item.association}</p>}
