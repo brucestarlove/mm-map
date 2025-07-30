@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import WebflowCMS from './WebflowCMS';
@@ -31,6 +31,10 @@ const MonumentMap = () => {
   const [activeFilter, setActiveFilter] = useState('monuments');
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  // Refs for controlling map interactions
+  const mapRef = useRef(null);
+  const markerRefs = useRef({});
 
   // Initialize Webflow CMS service
   const cms = new WebflowCMS();
@@ -56,6 +60,11 @@ const MonumentMap = () => {
     loadData();
   }, []);
 
+  // Clear selected item when filter or search changes
+  useEffect(() => {
+    setSelectedItem(null);
+  }, [activeFilter, searchTerm]);
+
   const getAllData = () => [...monuments, ...ecosystem];
 
   const getFilteredData = () => {
@@ -66,7 +75,7 @@ const MonumentMap = () => {
       return allData.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) ||
+        (item.tags && Array.isArray(item.tags) && item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) ||
         (item.type && item.type.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.category && item.category.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.location && item.location.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -87,15 +96,38 @@ const MonumentMap = () => {
   const filteredData = getFilteredData();
 
   const handleItemClick = (item) => {
-    setSelectedItem(item);
+    // Only set selected item and interact with map for monuments
+    const isMonument = monuments.some(monument => monument.id === item.id);
+    
+    if (isMonument) {
+      setSelectedItem(item);
+      
+      // Open the tooltip for the corresponding marker
+      const markerRef = markerRefs.current[item.id];
+      if (markerRef && markerRef.openPopup) {
+        markerRef.openPopup();
+        
+        // Pan to the marker location
+        if (mapRef.current && item.coordinates) {
+          mapRef.current.setView(item.coordinates, Math.max(mapRef.current.getZoom(), 8));
+        }
+      }
+    } else {
+      // For non-monuments, don't set as selected (no highlighting)
+      setSelectedItem(null);
+    }
   };
 
-  const renderResultItem = (item) => (
-    <div
-      key={item.id}
-      className={`result-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
-      onClick={() => handleItemClick(item)}
-    >
+  const renderResultItem = (item) => {
+    const isMonument = monuments.some(monument => monument.id === item.id);
+    const isSelected = isMonument && selectedItem?.id === item.id;
+    
+    return (
+      <div
+        key={item.id}
+        className={`result-item ${isSelected ? 'selected' : ''}`}
+        onClick={() => handleItemClick(item)}
+      >
       <h3>{item.name}</h3>
       {item.type && <p className="item-type">{item.type} - {item.category}</p>}
       <p>{item.description}</p>
@@ -103,7 +135,7 @@ const MonumentMap = () => {
       {item.association && <p><strong>Association:</strong> {item.association}</p>}
       {item.location && <p>📍 {item.location}</p>}
       {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
-      {item.tags && (
+      {item.tags && Array.isArray(item.tags) && (
         <div className="result-tags">
           {item.tags.map((tag, index) => (
             <span key={index} className="tag">{tag}</span>
@@ -111,7 +143,8 @@ const MonumentMap = () => {
         </div>
       )}
     </div>
-  );
+    );
+  };
 
   return (
     <div className="monument-map-container">
@@ -186,6 +219,7 @@ const MonumentMap = () => {
         
         <main className="map-container">
           <MapContainer
+            ref={mapRef}
             center={[39.8283, -98.5795]}
             zoom={4}
             style={{ height: '100%', width: '100%' }}
@@ -195,9 +229,10 @@ const MonumentMap = () => {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
-            {monuments.map((monument) => (
+            {monuments.filter(monument => monument.coordinates).map((monument) => (
               <Marker
                 key={monument.id}
+                ref={(ref) => { markerRefs.current[monument.id] = ref; }}
                 position={monument.coordinates}
                 icon={monumentIcon}
                 eventHandlers={{
@@ -208,13 +243,15 @@ const MonumentMap = () => {
                   <h3>{monument.name}</h3>
                   <p>{monument.description}</p>
                   <p className="year">Built: {monument.year}</p>
-                  <p><strong>Built by:</strong> {monument.builtBy}</p>
-                  <p><strong>Funded by:</strong> {monument.fundedBy}</p>
-                  <div className="tags">
-                    {monument.tags.map((tag, index) => (
-                      <span key={index} className="tag">{tag}</span>
-                    ))}
-                  </div>
+                  <p><strong>Location:</strong> {monument.location}</p>
+                  {monument.height && <p><strong>Height:</strong> {monument.height}</p>}
+                  {monument.tags && Array.isArray(monument.tags) && (
+                    <div className="tags">
+                      {monument.tags.map((tag, index) => (
+                        <span key={index} className="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
                   {monument.link && (
                     <p><a href={monument.link} target="_blank" rel="noopener noreferrer">Learn More</a></p>
                   )}
