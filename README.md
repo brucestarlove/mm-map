@@ -1,13 +1,15 @@
 # Monument Map & Cultural Library
 
-A React component for embedding in Webflow that displays an interactive map of the USA with monument pins and coordinates pulled from Webflow CMS collections. Also functions as a searchable catalog for the cultural ecosystem including Patrons, Organizations, Programs, and Concepts.
+A React application that displays an interactive map of the USA with monument pins and detailed information. Also functions as a searchable catalog for the cultural ecosystem including Persons, Organizations, Programs, and Concepts.
 
 ## Features
 
 - **Interactive USA Map**: Displays monuments with custom pins and detailed popups
-- **Webflow CMS Integration**: Pulls data from your Webflow CMS collections
-- **Searchable Catalog**: Browse monuments and cultural ecosystem (patrons, organizations, programs, and concepts)
-- **Modern UI**: Uses your brand colors (#1f3056, #263c59, #c87c35, #fefeff, #e4dfd5, #e5c422)
+- **API Data Integration**: Pulls real-time data from API endpoints
+- **Searchable Catalog**: Browse monuments and cultural ecosystem (persons, organizations, programs, and concepts)
+- **Interactive Map Integration**: Click monument list items to open map tooltips and pan to locations
+- **Client-side Caching**: 5-minute cache for improved performance
+- **Modern UI**: Uses brand colors (#1f3056, #263c59, #c87c35, #fefeff, #e4dfd5, #e5c422)
 - **Responsive Design**: Works on desktop and mobile devices
 
 ## Development Setup
@@ -28,54 +30,76 @@ A React component for embedding in Webflow that displays an interactive map of t
    npm run build
    ```
 
-## Webflow Integration
+## Development Data Sources
 
-### 1. Set Up Your CMS Collections
+The application currently pulls data from API endpoints served by mm-proxy:
 
-Create these collections in your Webflow CMS:
+- **Monuments**: `http://localhost:4321/api/api/monuments.json`
+- **Ecosystem**: `http://localhost:4321/api/api/ecosystem.json`
 
-**Monuments Collection** (required fields):
-- ID (auto-generated)
-- Name (text)
-- Status (text)
-- Location (text)
-- Description (rich text)
-- Year (text)
-- Built By (text)
-- Funded By (text)
-- Conceptualized By (text)
-- Tags (text, comma-separated)
-- Link (link)
-- Coordinates (text, format: "latitude,longitude")
+These endpoints can be configured by setting environment variables:
+- `window.MONUMENTS_API_URL` - Override default monuments endpoint
+- `window.ECOSYSTEM_API_URL` - Override default ecosystem endpoint
 
-**Ecosystem Collection** (required fields):
-- ID (auto-generated)
-- Name (text)
-- Type (text) - Values: "Patron", "Organization", "Program", or "Concept"
-- Category (text)
-- Association (text)
-- Location (text)
-- Website (link)
-- Description (rich text)
-- Tags (text, comma-separated)
+## Data Structure
 
-### 2. Configure API Access
-
-Add these script variables to your Webflow page's custom code (in the `<head>` section):
-
-```html
-<script>
-  // Webflow API Configuration
-  window.WEBFLOW_API_TOKEN = 'your_api_token_here';
-  window.WEBFLOW_SITE_ID = 'your_site_id_here';
-  
-  // Collection IDs (get these from your Webflow CMS)
-  window.MONUMENTS_COLLECTION_ID = 'your_monuments_collection_id';
-  window.ECOSYSTEM_COLLECTION_ID = 'your_ecosystem_collection_id';
-</script>
+### Monuments Data
+The monuments API returns data with the following structure:
+```json
+{
+  "items": [
+    {
+      "id": "unique_id",
+      "fieldData": {
+        "name": "Monument Name",
+        "status": "status_id",
+        "location": "Location Name",
+        "locationcoords": "latitude,longitude",
+        "description": "<p>HTML description</p>",
+        "year": "YYYY",
+        "height": "Height with units",
+        "built-by": "Builder Name",
+        "funded-by": "Funding Source",
+        "conceptualized-by": "Conceptualizer",
+        "tags": "comma,separated,tags",
+        "link-2": "https://external-link.com"
+      }
+    }
+  ]
+}
 ```
 
-### 3. Deploy to S3
+### Ecosystem Data
+The ecosystem API returns data with the following structure:
+```json
+{
+  "items": [
+    {
+      "id": "unique_id", 
+      "fieldData": {
+        "name": "Entity Name",
+        "type": "type_id",
+        "category": "category_id", 
+        "association": "Associated Entity",
+        "location": "Location",
+        "website": "https://website.com",
+        "description": "Description or notes",
+        "tags": "comma,separated,tags"
+      }
+    }
+  ]
+}
+```
+
+**Type Mappings:**
+- Person, Organization, Program, Concept
+
+**Category Mappings:**
+- Founders, Patrons, Organizations, Programs, Concepts
+
+## Deployment
+
+### Deploy to S3
 
 1. **Update package.json** with your S3 bucket name:
    ```json
@@ -87,7 +111,7 @@ Add these script variables to your Webflow page's custom code (in the `<head>` s
    npm run bd
    ```
 
-### 4. Add to Webflow
+### Integration
 
 1. **Load React Libraries** in your page's `<head>` tag:
    ```html
@@ -105,13 +129,13 @@ Add these script variables to your Webflow page's custom code (in the `<head>` s
    <div id="react-target"></div>
    ```
 
-## Data Format
-
-### Monument Coordinates
-Coordinates should be in the format: `"latitude,longitude"` (e.g., "40.6892,-74.0445")
-
-### Tags
-Tags should be comma-separated strings (e.g., "Freedom,Democracy,Gift,France")
+4. **Configure API Endpoints** (optional, if using different endpoints):
+   ```html
+   <script>
+     window.MONUMENTS_API_URL = 'https://your-api.com/monuments.json';
+     window.ECOSYSTEM_API_URL = 'https://your-api.com/ecosystem.json';
+   </script>
+   ```
 
 ## Customization
 
@@ -119,15 +143,21 @@ Tags should be comma-separated strings (e.g., "Freedom,Democracy,Gift,France")
 - **Map Style**: Change the tile layer URL in `MonumentMap.js`
 - **Data Fields**: Update the field mappings in `WebflowCMS.js`
 - **UI Components**: Customize the layout and components in `MonumentMap.js`
+- **API Endpoints**: Configure different data sources via `window.MONUMENTS_API_URL` and `window.ECOSYSTEM_API_URL`
 
-## Fallback Data
+## Application Features
 
-The component includes mock data that will be used if:
-- Webflow API credentials are not configured
-- API requests fail
-- Collections are not found
+### Interactive Map Functionality
+- **Monument Pins**: Custom pins for each monument with coordinates
+- **Popup Tooltips**: Detailed information including name, description, year, location, height, and external links
+- **List Integration**: Clicking monument items in the sidebar opens corresponding map tooltips and pans to location
+- **Non-monument Filtering**: Only monuments interact with the map; persons, organizations, programs, and concepts are list-only
 
-This ensures the component always works during development and provides a fallback in production.
+### Data Management
+- **Client-side Caching**: 5-minute cache reduces API calls and improves performance
+- **Error Handling**: Graceful degradation when API endpoints are unavailable
+- **HTML Parsing**: Automatically strips HTML tags from descriptions for clean display
+- **Coordinate Parsing**: Handles various coordinate formats including "lat,lng" strings
 
 ## Browser Support
 
