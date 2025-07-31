@@ -35,7 +35,7 @@ class WebflowCMS {
       return cachedData;
     }
 
-    const monumentsUrl = window.MONUMENTS_API_URL || 'http://localhost:4321/api/api/monuments.json';
+    const monumentsUrl = window.MONUMENTS_API_URL || 'https://mm1-fe52fb-7bc93d167bfbe6de86cc672332aa.webflow.io/api/api/monuments.json';
     
     try {
       const response = await fetch(monumentsUrl);
@@ -85,7 +85,7 @@ class WebflowCMS {
       return cachedData;
     }
 
-    const ecosystemUrl = window.ECOSYSTEM_API_URL || 'http://localhost:4321/api/api/ecosystem.json';
+    const ecosystemUrl = window.ECOSYSTEM_API_URL || 'https://mm1-fe52fb-7bc93d167bfbe6de86cc672332aa.webflow.io/api/api/ecosystem.json';
     
     try {
       const response = await fetch(ecosystemUrl);
