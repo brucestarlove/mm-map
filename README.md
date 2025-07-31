@@ -109,6 +109,11 @@ The ecosystem API returns data with the following structure:
 
 ## Deployment
 
+### Deploy to GitHub x jsDelivr (our choice)
+
+1. Push bundle.js to GitHub
+2. Use jsDelivr: https://cdn.jsdelivr.net/gh/yourusername/mm-map@main/dist/bundle.js
+
 ### Deploy to S3
 
 1. **Update package.json** with your S3 bucket name:
@@ -134,7 +139,7 @@ The ecosystem API returns data with the following structure:
 2. **Load Your Bundle** before the closing `</body>` tag:
 
    ```html
-   <script src="https://YOUR_BUCKET.s3.YOUR_REGION.amazonaws.com/bundle.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/YOURUSERNAME/mm-map@main/dist/bundle.js"></script>
    ```
 
 3. **Create Target Div** where you want the map to appear:
