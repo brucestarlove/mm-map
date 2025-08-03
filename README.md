@@ -129,31 +129,36 @@ The ecosystem API returns data with the following structure:
 
 ### Integration
 
-1. **Load React Libraries** in your page's `<head>` tag:
+1. **Load React Libraries And Target Style** in your page's `<head>` tag:
 
    ```html
-   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+   <!-- React and ReactDOM from CDN -->
+  <script src="https://unpkg.com/react@19.1.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@19.1.1/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Leaflet CSS for the map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #react-target {
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(31, 48, 86, 0.2);
+    }
+  </style>
    ```
 
 2. **Load Your Bundle** before the closing `</body>` tag:
 
    ```html
-   <script src="https://cdn.jsdelivr.net/gh/YOURUSERNAME/mm-map@main/dist/bundle.js"></script>
+     <script src="https://cdn.jsdelivr.net/gh/brucestarlove/mm-map@main/dist/bundle.js"></script>
    ```
 
 3. **Create Target Div** where you want the map to appear:
 
    ```html
    <div id="react-target"></div>
-   ```
-
-4. **Configure API Endpoints** (optional, if using different endpoints):
-   ```html
-   <script>
-     window.MONUMENTS_API_URL = "https://your-api.com/api/monuments.json";
-     window.ECOSYSTEM_API_URL = "https://your-api.com/api/ecosystem.json";
-   </script>
    ```
 
 ## Customization

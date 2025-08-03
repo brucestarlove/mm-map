@@ -255,16 +255,98 @@ body {
 }
 
 @media (max-width: 768px) {
+  .monument-map-container {
+    height: 100vh;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
   .content {
     flex-direction: column;
+    height: calc(100vh - 100px);
   }
   
   .sidebar {
     width: 100%;
-    height: 300px;
+    height: 35vh;
+    min-height: 250px;
+    max-height: 350px;
+  }
+
+  .search-section {
+    padding: 1rem;
+  }
+
+  .filter-pills {
+    gap: 0.25rem;
+  }
+
+  .filter-pill {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .result-item {
+    padding: 1rem;
+  }
+
+  .result-item h3 {
+    font-size: 1rem;
+  }
+
+  .result-item p {
+    font-size: 0.85rem;
   }
   
   .map-container {
-    height: calc(100vh - 420px);
+    height: 65vh;
+    min-height: 300px;
+  }
+
+  .monument-popup {
+    max-width: 250px;
+  }
+
+  .monument-popup h3 {
+    font-size: 1rem;
+  }
+
+  .monument-popup p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    height: 40vh;
+    min-height: 280px;
+  }
+
+  .map-container {
+    height: 60vh;
+  }
+
+  .search-section {
+    padding: 0.75rem;
+  }
+
+  .filter-pill {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .result-item {
+    padding: 0.75rem;
   }
 }

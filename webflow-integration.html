@@ -14,8 +14,6 @@
   <script src="https://unpkg.com/react-dom@19.1.1/umd/react-dom.production.min.js" crossorigin></script>
   <!-- Leaflet CSS for the map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha512-sA+e1Dfx+…"
-    crossorigin="" />
   <style>
     #react-target {
       width: 100%;
@@ -99,6 +97,10 @@
     }
 
     @media (max-width: 768px) {
+      .hero-section {
+        padding: 1.5rem 1rem;
+      }
+
       .hero-section h1 {
         font-size: 2rem;
       }
@@ -107,13 +109,56 @@
         font-size: 1rem;
       }
 
+      .map-section {
+        padding: 1rem;
+      }
+
       .section-title {
         font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      #react-target {
+        height: 75vh;
+        min-height: 400px;
+        border-radius: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-section {
+        padding: 1rem 0.75rem;
+      }
+
+      .hero-section h1 {
+        font-size: 1.75rem;
+      }
+
+      .hero-section p {
+        font-size: 0.9rem;
+      }
+
+      .map-section {
+        padding: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .section-subtitle {
+        font-size: 0.95rem;
       }
 
       #react-target {
         height: 70vh;
-        min-height: 500px;
+        min-height: 350px;
+        border-radius: 6px;
       }
     }
   </style>
