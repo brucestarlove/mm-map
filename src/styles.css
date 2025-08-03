@@ -56,7 +56,7 @@ body {
 }
 
 .sidebar {
-  width: 400px;
+  width: 320px;
   background: var(--white);
   border-right: 2px solid var(--accent-gold);
   overflow-y: auto;
@@ -64,7 +64,7 @@ body {
 }
 
 .search-section {
-  padding: 1.5rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--cream);
 }
 
@@ -152,7 +152,7 @@ body {
 }
 
 .result-item {
-  padding: 1.5rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--cream);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -254,7 +254,8 @@ body {
   font-size: 1.1rem;
 }
 
-@media (max-width: 768px) {
+/* Force mobile layout when container is narrow OR screen is small */
+@media (max-width: 768px), (max-height: 600px) {
   .monument-map-container {
     height: 100vh;
   }

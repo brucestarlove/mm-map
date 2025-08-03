@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development --progress --color --port 3000",
+    "dev": "webpack-dev-server --config ./webpack.config.js --mode development --progress --color --port 3000",
     "build": "webpack",
-    "deploy": "aws s3 cp ./dist/bundle.js s3://YOUR_BUCKET_NAME/ --acl public-read",
+    "deploy": "git add . && git commit -m 'Deploy build' && git push origin main",
     "bd": "npm run build && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
