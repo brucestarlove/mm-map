@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import MonumentMap from './MonumentMap';
 import './styles.css';
+import 'leaflet/dist/leaflet.css'
 
 const initializeApp = () => {
   console.log('Monument Map: Initializing app...');

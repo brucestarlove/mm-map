@@ -6,26 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Webflow Integration Example</title>
 
-  <!-- Webflow API Configuration -->
-  <script>
-    // Replace these with your actual Webflow credentials
-    // window.WEBFLOW_API_TOKEN = 'your_webflow_api_token_here';
-    // window.WEBFLOW_SITE_ID = 'your_webflow_site_id_here';
+  <!-- React and ReactDOM from CDN
+  <script src="https://unpkg.com/react@19.1.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@19.1.1/umd/react-dom.production.min.js"></script>
+  Leaflet CSS for the map
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> -->
 
-    // Replace these with your actual Collection IDs from Webflow CMS
-    // window.MONUMENTS_COLLECTION_ID = 'your_monuments_collection_id';
-    // window.PATRONS_COLLECTION_ID = 'your_patrons_collection_id';
-    // window.ORGANIZATIONS_COLLECTION_ID = 'your_organizations_collection_id';
-    // window.PROGRAMS_COLLECTION_ID = 'your_programs_collection_id';
-    // window.CONCEPTS_COLLECTION_ID = 'your_concepts_collection_id';
-  </script>
 
   <!-- React and ReactDOM from CDN -->
-  <script src="https://unpkg.com/react@19/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@19/umd/react-dom.production.min.js"></script>
-
+  <script src="https://unpkg.com/react@19.1.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@19.1.1/umd/react-dom.production.min.js"></script>
   <!-- Leaflet CSS for the map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha512-sA+e1Dfx+…"
+    crossorigin="" />
+  <style>
+    #react-target {
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(31, 48, 86, 0.2);
+    }
+  </style>
+
 
   <style>
     body {
