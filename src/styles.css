@@ -260,32 +260,32 @@ body {
   }
 
   .header {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .header h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 0.25rem;
   }
 
   .header p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .content {
     flex-direction: column;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 80px);
   }
   
   .sidebar {
     width: 100%;
-    height: 35vh;
-    min-height: 250px;
-    max-height: 350px;
+    height: 25vh;
+    min-height: 200px;
+    max-height: 280px;
   }
 
   .search-section {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .filter-pills {
@@ -293,25 +293,26 @@ body {
   }
 
   .filter-pill {
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    padding: 5px 10px;
+    font-size: 0.75rem;
   }
 
   .result-item {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .result-item h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .result-item p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
   }
   
   .map-container {
-    height: 65vh;
-    min-height: 300px;
+    height: 75vh;
+    min-height: 400px;
   }
 
   .monument-popup {
@@ -328,25 +329,51 @@ body {
 }
 
 @media (max-width: 480px) {
+  .header {
+    padding: 0.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.1rem;
+  }
+
+  .header p {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    height: calc(100vh - 70px);
+  }
+
   .sidebar {
-    height: 40vh;
-    min-height: 280px;
+    height: 22vh;
+    min-height: 180px;
+    max-height: 220px;
   }
 
   .map-container {
-    height: 60vh;
+    height: 78vh;
+    min-height: 450px;
   }
 
   .search-section {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 
   .filter-pill {
-    padding: 5px 10px;
-    font-size: 0.75rem;
+    padding: 4px 8px;
+    font-size: 0.7rem;
   }
 
   .result-item {
-    padding: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .result-item h3 {
+    font-size: 0.9rem;
+  }
+
+  .result-item p {
+    font-size: 0.75rem;
   }
 }
