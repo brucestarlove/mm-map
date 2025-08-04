@@ -171,6 +171,11 @@ The ecosystem API returns data with the following structure:
    <div id="react-target"></div>
    ```
 
+### Webflow Integration Tips
+
+- **Font Size Scaling**: If the component appears too large, set the Code Embed element's font-size to a smaller value (e.g., `font-size: 12px`). The component uses rem units that scale relative to the parent container's font-size.
+- **Responsive Behavior**: The component automatically switches to mobile layout on narrow screens, but you can force this by setting the container font-size smaller.
+
 ## Customization
 
 - **Colors**: Modify the CSS variables in `src/styles.css`

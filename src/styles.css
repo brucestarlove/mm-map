@@ -24,7 +24,9 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .header {
