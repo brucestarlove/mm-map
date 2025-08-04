@@ -111,8 +111,18 @@ The ecosystem API returns data with the following structure:
 
 ### Deploy to GitHub x jsDelivr (our choice)
 
-1. Push bundle.js to GitHub
+1. Build and push to GitHub:
+   ```bash
+   npm run bd
+   ```
+
 2. Use jsDelivr: https://cdn.jsdelivr.net/gh/yourusername/mm-map@main/dist/bundle.js
+
+3. **If changes don't appear immediately**, purge the jsDelivr cache:
+   ```
+   https://purge.jsdelivr.net/gh/brucestarlove/mm-map@main/dist/bundle.js
+   ```
+   Visit that URL in your browser to force jsDelivr to refresh the cached file.
 
 ### Deploy to S3
 
