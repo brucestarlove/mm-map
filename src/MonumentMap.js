@@ -130,7 +130,7 @@ const MonumentMap = () => {
       >
       <h3>{item.name}</h3>
       <p>{item.description}</p>
-      {item.year && <p className="year">Built: {item.year}</p>}
+      {item.year && <p className="year">Year: {item.year}</p>}
       {item.association && <p><strong>Association:</strong> {item.association}</p>}
       {item.location && <p>📍 {item.location}</p>}
       {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
@@ -241,7 +241,7 @@ const MonumentMap = () => {
                 <Popup className="monument-popup">
                   <h3>{monument.name}</h3>
                   <p>{monument.description}</p>
-                  <p className="year">Built: {monument.year}</p>
+                  <p className="year">Year: {monument.year}</p>
                   <p><strong>Location:</strong> {monument.location}</p>
                   {monument.height && <p><strong>Height:</strong> {monument.height}</p>}
                   {monument.tags && Array.isArray(monument.tags) && (
