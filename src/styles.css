@@ -307,7 +307,19 @@ body.monument-map-active {
 /* Force mobile layout when container is narrow OR screen is small */
 @media (max-width: 768px), (max-height: 600px) {
   .monument-map-container {
-    height: 100vh;
+    height: 100vh !important;
+  }
+
+  .monument-map-container .leaflet-container {
+    height: 50vh !important;
+  }
+
+  .monument-map-container .mm-search-input {
+    padding: 8px 12px !important; 
+  }
+
+  .monument-map-container .mm-filter-section {
+    margin-top: 0.5rem !important;
   }
 
   .monument-map-container .mm-header {
