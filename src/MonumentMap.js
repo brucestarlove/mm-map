@@ -263,13 +263,13 @@ const MonumentMap = () => {
                   <p className="year">Year: {monument.year}</p>
                   <p><strong>Location:</strong> {monument.location}</p>
                   {monument.height && <p><strong>Height:</strong> {monument.height}</p>}
-                  {monument.tags && Array.isArray(monument.tags) && (
+                  {/* {monument.tags && Array.isArray(monument.tags) && (
                     <div className="tags">
                       {monument.tags.map((tag, index) => (
                         <span key={index} className="tag">{tag}</span>
                       ))}
                     </div>
-                  )}
+                  )} */}
                   {monument.link && (
                     <p><a href={monument.link} target="_blank" rel="noopener noreferrer">Learn More</a></p>
                   )}
