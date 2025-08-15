@@ -34,7 +34,19 @@ A React application that displays an interactive map of the USA with monument pi
    ```
 
 4. **Git commit main for bundle.js deployment**
-- served via jsdelivr. pulled into webflow page `<head>` settings. hitting mm-proxy served on webflow cloud in MoreMonuments workspace. 
+- served via jsdelivr. pulled into webflow page before `</body>` tag. hitting mm-proxy served on webflow cloud in MoreMonuments workspace.
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/brucestarlove/mm-map@main/dist/bundle.js"></script>
+```
+
+- webflow page code embed component:
+
+```html
+<div class="react-map-wrapper">
+  <div id="react-target"></div>
+</div>
+```
 
 ## Development Data Sources
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import L from 'leaflet';
 import WebflowCMS from './WebflowCMS';
 
@@ -10,6 +10,17 @@ L.Icon.Default.mergeOptions({
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
+
+// Component for animated panning on click
+const SetViewOnClick = () => {
+  const map = useMapEvent('click', (e) => {
+    map.setView(e.latlng, map.getZoom(), {
+      animate: true,
+    })
+  })
+
+  return null
+}
 
 // Custom monument marker icon
 const monumentIcon = new L.Icon({
@@ -126,9 +137,9 @@ const MonumentMap = () => {
             markerPoint.y - offsetPixels
           );
           
-          // Convert back to lat/lng and set as new center
+          // Convert back to lat/lng and set as new center with animation
           const offsetCenter = map.unproject(offsetCenterPoint, currentZoom);
-          map.setView(offsetCenter, currentZoom);
+          map.setView(offsetCenter, currentZoom, { animate: true });
         }
       }
     } else {
@@ -247,6 +258,7 @@ const MonumentMap = () => {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
+            <SetViewOnClick />
             {monuments.filter(monument => monument.coordinates).map((monument) => (
               <Marker
                 key={monument.id}
