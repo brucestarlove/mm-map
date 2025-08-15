@@ -304,6 +304,100 @@ body.monument-map-active {
   padding: 0 !important;
 }
 
+/* Accordion styles for non-monument items */
+.monument-map-container .mm-accordion-item {
+  border-bottom: 1px solid var(--cream) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+.monument-map-container .mm-accordion-item:hover {
+  background: linear-gradient(135deg, var(--cream) 0%, rgba(229, 196, 34, 0.05) 100%) !important;
+}
+
+.monument-map-container .mm-accordion-header {
+  padding: 1rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+.monument-map-container .mm-accordion-header h3 {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
+  flex: 1 !important;
+}
+
+.monument-map-container .mm-accordion-icon {
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: var(--accent-gold) !important;
+  margin: 0 0 0 1rem !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  transition: transform 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.monument-map-container .mm-accordion-item.expanded .mm-accordion-icon {
+  transform: rotate(0deg) !important;
+}
+
+.monument-map-container .mm-accordion-content {
+  max-height: 0 !important;
+  overflow: hidden !important;
+  transition: max-height 0.3s ease-out !important;
+  background: rgba(228, 223, 213, 0.3) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.monument-map-container .mm-accordion-item.expanded .mm-accordion-content {
+  max-height: 500px !important;
+  padding: 1rem !important;
+  padding-top: 0 !important;
+}
+
+.monument-map-container .mm-accordion-content p {
+  font-size: 0.9rem !important;
+  opacity: 0.8 !important;
+  line-height: 1.4 !important;
+  margin: 0.25rem 0 !important;
+  padding: 0 !important;
+}
+
+.monument-map-container .mm-accordion-content .mm-year {
+  font-weight: 600 !important;
+  color: var(--accent-gold) !important;
+  margin: 0.5rem 0 0.25rem 0 !important;
+  padding: 0 !important;
+}
+
+.monument-map-container .mm-accordion-content .mm-result-tags {
+  margin: 0.5rem 0 0 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.monument-map-container .mm-accordion-content .mm-tag {
+  padding: 2px 8px !important;
+  background: rgba(31, 48, 86, 0.15) !important;
+  border-radius: 12px !important;
+  font-size: 0.75rem !important;
+  color: var(--primary-blue) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
 /* Force mobile layout when container is narrow OR screen is small */
 @media (max-width: 768px), (max-height: 600px) {
   .monument-map-container {

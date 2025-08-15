@@ -42,6 +42,7 @@ const MonumentMap = () => {
   const [activeFilter, setActiveFilter] = useState('monuments');
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [expandedItems, setExpandedItems] = useState(new Set());
   
   // Refs for controlling map interactions
   const mapRef = useRef(null);
@@ -60,7 +61,9 @@ const MonumentMap = () => {
         ]);
 
         setMonuments(monumentsData);
-        setEcosystem(ecosystemData);
+        // Shuffle ecosystem data randomly on initial load
+        const shuffledEcosystem = [...ecosystemData].sort(() => Math.random() - 0.5);
+        setEcosystem(shuffledEcosystem);
         setLoading(false);
       } catch (error) {
         console.error('Error loading data:', error);
@@ -143,36 +146,76 @@ const MonumentMap = () => {
         }
       }
     } else {
-      // For non-monuments, don't set as selected (no highlighting)
-      setSelectedItem(null);
+      // For non-monuments, toggle accordion expansion
+      setExpandedItems(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(item.id)) {
+          newSet.delete(item.id);
+        } else {
+          newSet.add(item.id);
+        }
+        return newSet;
+      });
     }
   };
 
   const renderResultItem = (item) => {
     const isMonument = monuments.some(monument => monument.id === item.id);
     const isSelected = isMonument && selectedItem?.id === item.id;
+    const isExpanded = expandedItems.has(item.id);
     
-    return (
-      <div
-        key={item.id}
-        className={`mm-result-item ${isSelected ? 'selected' : ''}`}
-        onClick={() => handleItemClick(item)}
-      >
-      <h3>{item.name}</h3>
-      <p>{item.description}</p>
-      {item.year && <p className="mm-year">Year: {item.year}</p>}
-      {item.association && <p><strong>Association:</strong> {item.association}</p>}
-      {item.location && <p>📍 {item.location}</p>}
-      {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
-      {item.tags && Array.isArray(item.tags) && (
-        <div className="mm-result-tags">
-          {item.tags.map((tag, index) => (
-            <span key={index} className="mm-tag">{tag}</span>
-          ))}
+    if (isMonument) {
+      // Render monuments as before
+      return (
+        <div
+          key={item.id}
+          className={`mm-result-item ${isSelected ? 'selected' : ''}`}
+          onClick={() => handleItemClick(item)}
+        >
+        <h3>{item.name}</h3>
+        <p>{item.description}</p>
+        {item.year && <p className="mm-year">Year: {item.year}</p>}
+        {item.association && <p><strong>Association:</strong> {item.association}</p>}
+        {item.location && <p>📍 {item.location}</p>}
+        {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
+        {item.tags && Array.isArray(item.tags) && (
+          <div className="mm-result-tags">
+            {item.tags.map((tag, index) => (
+              <span key={index} className="mm-tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+      );
+    } else {
+      // Render non-monuments as accordion items
+      return (
+        <div
+          key={item.id}
+          className={`mm-accordion-item ${isExpanded ? 'expanded' : ''}`}
+          onClick={() => handleItemClick(item)}
+        >
+          <div className="mm-accordion-header">
+            <h3>{item.name}</h3>
+            <span className="mm-accordion-icon">{isExpanded ? '−' : '+'}</span>
+          </div>
+          <div className="mm-accordion-content">
+            <p>{item.description}</p>
+            {item.year && <p className="mm-year">Year: {item.year}</p>}
+            {item.association && <p><strong>Association:</strong> {item.association}</p>}
+            {item.location && <p>📍 {item.location}</p>}
+            {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
+            {item.tags && Array.isArray(item.tags) && (
+              <div className="mm-result-tags">
+                {item.tags.map((tag, index) => (
+                  <span key={index} className="mm-tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      )}
-    </div>
-    );
+      );
+    }
   };
 
   return (
