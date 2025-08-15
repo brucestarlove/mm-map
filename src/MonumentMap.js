@@ -107,9 +107,28 @@ const MonumentMap = () => {
       if (markerRef && markerRef.openPopup) {
         markerRef.openPopup();
         
-        // Pan to the marker location
+        // Pan to the marker location with gentle offset to position pin lower in viewport
         if (mapRef.current && item.coordinates) {
-          mapRef.current.setView(item.coordinates, Math.max(mapRef.current.getZoom(), 8));
+          const map = mapRef.current;
+          const currentZoom = Math.max(map.getZoom(), 8);
+          
+          // Get map container height
+          const containerHeight = map.getContainer().offsetHeight;
+          
+          // Gentle offset - move map center up by 30% of viewport height
+          // This positions the marker at roughly 60-70% down from top
+          const offsetPixels = containerHeight * 0.3;
+          
+          // Calculate the target position
+          const markerPoint = map.project(item.coordinates, currentZoom);
+          const offsetCenterPoint = L.point(
+            markerPoint.x,
+            markerPoint.y - offsetPixels
+          );
+          
+          // Convert back to lat/lng and set as new center
+          const offsetCenter = map.unproject(offsetCenterPoint, currentZoom);
+          map.setView(offsetCenter, currentZoom);
         }
       }
     } else {

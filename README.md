@@ -33,6 +33,9 @@ A React application that displays an interactive map of the USA with monument pi
    npm run build
    ```
 
+4. **Git commit main for bundle.js deployment**
+- served via jsdelivr. pulled into webflow page `<head>` settings. hitting mm-proxy served on webflow cloud in MoreMonuments workspace. 
+
 ## Development Data Sources
 
 The application currently pulls data from API endpoints served by mm-proxy:
