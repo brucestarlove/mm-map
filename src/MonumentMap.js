@@ -60,9 +60,10 @@ const MonumentMap = () => {
           cms.fetchEcosystem()
         ]);
 
-        setMonuments(monumentsData);
-        // Shuffle ecosystem data randomly on initial load
+        // Shuffle both monuments and ecosystem data randomly on initial load
+        const shuffledMonuments = [...monumentsData].sort(() => Math.random() - 0.5);
         const shuffledEcosystem = [...ecosystemData].sort(() => Math.random() - 0.5);
+        setMonuments(shuffledMonuments);
         setEcosystem(shuffledEcosystem);
         setLoading(false);
       } catch (error) {
