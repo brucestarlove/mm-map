@@ -24,7 +24,6 @@ class WebflowCMS {
     });
   }
 
-
   // Fetch monuments from CMS
   async fetchMonuments() {
     const cacheKey = 'monuments';

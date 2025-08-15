@@ -144,19 +144,19 @@ const MonumentMap = () => {
     return (
       <div
         key={item.id}
-        className={`result-item ${isSelected ? 'selected' : ''}`}
+        className={`mm-result-item ${isSelected ? 'selected' : ''}`}
         onClick={() => handleItemClick(item)}
       >
       <h3>{item.name}</h3>
       <p>{item.description}</p>
-      {item.year && <p className="year">Year: {item.year}</p>}
+      {item.year && <p className="mm-year">Year: {item.year}</p>}
       {item.association && <p><strong>Association:</strong> {item.association}</p>}
       {item.location && <p>📍 {item.location}</p>}
       {item.website && <p><a href={item.website} target="_blank" rel="noopener noreferrer">Visit Website</a></p>}
       {item.tags && Array.isArray(item.tags) && (
-        <div className="result-tags">
+        <div className="mm-result-tags">
           {item.tags.map((tag, index) => (
-            <span key={index} className="tag">{tag}</span>
+            <span key={index} className="mm-tag">{tag}</span>
           ))}
         </div>
       )}
@@ -166,57 +166,57 @@ const MonumentMap = () => {
 
   return (
     <div className="monument-map-container">
-      <header className="header">
+      <header className="mm-header">
         <h1>Monument Map & Cultural Library</h1>
         <p>Explore monuments, patrons, organizations, programs, and concepts that inspire awe and ambition</p>
       </header>
       
-      <div className="content">
-        <aside className="sidebar">
-          <div className="search-section">
+      <div className="mm-content">
+        <aside className="mm-sidebar">
+          <div className="mm-search-section">
             <input
               type="text"
-              className="search-input"
+              className="mm-search-input"
               placeholder="Search across all monuments, people, and organizations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             
-            <div className={`filter-section ${searchTerm.trim() ? 'search-active' : ''}`}>
-              <div className="filter-label">
+            <div className={`mm-filter-section ${searchTerm.trim() ? 'search-active' : ''}`}>
+              <div className="mm-filter-label">
                 {searchTerm.trim() ? 'Browse by type:' : 'Filter results:'}
               </div>
-              <div className="filter-pills">
+              <div className="mm-filter-pills">
                 <button
-                  className={`filter-pill ${activeFilter === 'monuments' ? 'active' : ''}`}
+                  className={`mm-filter-pill ${activeFilter === 'monuments' ? 'active' : ''}`}
                   onClick={() => setActiveFilter('monuments')}
                   disabled={searchTerm.trim()}
                 >
                   Monuments
                 </button>
                 <button
-                  className={`filter-pill ${activeFilter === 'patrons' ? 'active' : ''}`}
+                  className={`mm-filter-pill ${activeFilter === 'patrons' ? 'active' : ''}`}
                   onClick={() => setActiveFilter('patrons')}
                   disabled={searchTerm.trim()}
                 >
                   Persons
                 </button>
                 <button
-                  className={`filter-pill ${activeFilter === 'organizations' ? 'active' : ''}`}
+                  className={`mm-filter-pill ${activeFilter === 'organizations' ? 'active' : ''}`}
                   onClick={() => setActiveFilter('organizations')}
                   disabled={searchTerm.trim()}
                 >
                   Organizations
                 </button>
                 <button
-                  className={`filter-pill ${activeFilter === 'programs' ? 'active' : ''}`}
+                  className={`mm-filter-pill ${activeFilter === 'programs' ? 'active' : ''}`}
                   onClick={() => setActiveFilter('programs')}
                   disabled={searchTerm.trim()}
                 >
                   Programs
                 </button>
                 <button
-                  className={`filter-pill ${activeFilter === 'concepts' ? 'active' : ''}`}
+                  className={`mm-filter-pill ${activeFilter === 'concepts' ? 'active' : ''}`}
                   onClick={() => setActiveFilter('concepts')}
                   disabled={searchTerm.trim()}
                 >
@@ -226,16 +226,16 @@ const MonumentMap = () => {
             </div>
           </div>
           
-          <div className="results-section">
+          <div className="mm-results-section">
             {loading ? (
-              <div className="loading">Loading...</div>
+              <div className="mm-loading">Loading...</div>
             ) : (
               filteredData.map(renderResultItem)
             )}
           </div>
         </aside>
         
-        <main className="map-container">
+        <main className="mm-map-container">
           <MapContainer
             ref={mapRef}
             center={[39.8283, -98.5795]}
@@ -257,16 +257,16 @@ const MonumentMap = () => {
                   click: () => handleItemClick(monument),
                 }}
               >
-                <Popup className="monument-popup">
+                <Popup className="mm-monument-popup">
                   <h3>{monument.name}</h3>
                   <p>{monument.description}</p>
-                  <p className="year">Year: {monument.year}</p>
+                  <p className="mm-year">Year: {monument.year}</p>
                   <p><strong>Location:</strong> {monument.location}</p>
                   {monument.height && <p><strong>Height:</strong> {monument.height}</p>}
                   {/* {monument.tags && Array.isArray(monument.tags) && (
-                    <div className="tags">
+                    <div className="mm-tags">
                       {monument.tags.map((tag, index) => (
-                        <span key={index} className="tag">{tag}</span>
+                        <span key={index} className="mm-tag">{tag}</span>
                       ))}
                     </div>
                   )} */}

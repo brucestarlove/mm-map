@@ -13,10 +13,13 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: var(--cream);
-  color: var(--primary-blue);
+.monument-map-container body,
+body.monument-map-active {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+  background-color: var(--cream) !important;
+  color: var(--primary-blue) !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .monument-map-container {
@@ -29,229 +32,276 @@ body {
   box-sizing: border-box;
 }
 
-.header {
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-  color: var(--white);
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 20px rgba(31, 48, 86, 0.2);
+.monument-map-container .mm-header {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%) !important;
+  color: var(--white) !important;
+  padding: 1rem 2rem !important;
+  box-shadow: 0 4px 20px rgba(31, 48, 86, 0.2) !important;
+  margin: 0 !important;
 }
 
-.header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(45deg, var(--white), var(--bright-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.monument-map-container .mm-header h1 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.5rem 0 !important;
+  padding: 0 !important;
+  background: linear-gradient(45deg, var(--white), var(--bright-gold)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  line-height: 1.2 !important;
 }
 
-.header p {
-  opacity: 0.9;
-  font-size: 1rem;
+.monument-map-container .mm-header p {
+  opacity: 0.9 !important;
+  font-size: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
 }
 
-.content {
-  display: flex;
-  flex: 1;
-  height: calc(100vh - 120px);
+.monument-map-container .mm-content {
+  display: flex !important;
+  flex: 1 !important;
+  height: calc(100vh - 120px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.sidebar {
-  width: 320px;
-  background: var(--white);
-  border-right: 2px solid var(--accent-gold);
-  overflow-y: auto;
-  box-shadow: 4px 0 20px rgba(31, 48, 86, 0.1);
+.monument-map-container .mm-sidebar {
+  width: 320px !important;
+  background: var(--white) !important;
+  border-right: 2px solid var(--accent-gold) !important;
+  overflow-y: auto !important;
+  box-shadow: 4px 0 20px rgba(31, 48, 86, 0.1) !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.search-section {
-  padding: 1rem;
-  border-bottom: 1px solid var(--cream);
+.monument-map-container .mm-search-section {
+  padding: 1rem !important;
+  border-bottom: 1px solid var(--cream) !important;
+  margin: 0 !important;
 }
 
-.search-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid var(--cream);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: var(--white);
+.monument-map-container .mm-search-input {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  border: 2px solid var(--cream) !important;
+  border-radius: 8px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  background: var(--white) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(200, 124, 53, 0.1);
+.monument-map-container .mm-search-input:focus {
+  outline: none !important;
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 3px rgba(200, 124, 53, 0.1) !important;
 }
 
-.filter-section {
-  margin-top: 1rem;
-  transition: all 0.3s ease;
+.monument-map-container .mm-filter-section {
+  margin: 1rem 0 0 0 !important;
+  padding: 0 !important;
+  transition: all 0.3s ease !important;
 }
 
-.filter-section.search-active {
-  opacity: 0.6;
+.monument-map-container .mm-filter-section.search-active {
+  opacity: 0.6 !important;
 }
 
-.filter-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--primary-blue);
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.monument-map-container .mm-filter-label {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: var(--primary-blue) !important;
+  margin: 0 0 0.5rem 0 !important;
+  padding: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1.2 !important;
 }
 
-.filter-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.monument-map-container .mm-filter-pills {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.filter-pill {
-  padding: 8px 16px;
-  background: var(--cream);
-  border: 2px solid var(--cream);
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--primary-blue);
-  transition: all 0.3s ease;
-  white-space: nowrap;
+.monument-map-container .mm-filter-pill {
+  padding: 8px 16px !important;
+  background: var(--cream) !important;
+  border: 2px solid var(--cream) !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: var(--primary-blue) !important;
+  transition: all 0.3s ease !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.filter-pill:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  background: var(--cream);
-  border-color: var(--cream);
-  color: var(--primary-blue);
-  transform: none;
-  box-shadow: none;
+.monument-map-container .mm-filter-pill:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  background: var(--cream) !important;
+  border-color: var(--cream) !important;
+  color: var(--primary-blue) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-.filter-pill.active {
-  background: var(--accent-gold);
-  border-color: var(--accent-gold);
-  color: var(--white);
-  box-shadow: 0 2px 8px rgba(200, 124, 53, 0.3);
+.monument-map-container .mm-filter-pill.active {
+  background: var(--accent-gold) !important;
+  border-color: var(--accent-gold) !important;
+  color: var(--white) !important;
+  box-shadow: 0 2px 8px rgba(200, 124, 53, 0.3) !important;
 }
 
-.filter-pill:hover:not(:disabled) {
-  background: var(--accent-gold);
-  border-color: var(--accent-gold);
-  color: var(--white);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(200, 124, 53, 0.2);
+.monument-map-container .mm-filter-pill:hover:not(:disabled) {
+  background: var(--accent-gold) !important;
+  border-color: var(--accent-gold) !important;
+  color: var(--white) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(200, 124, 53, 0.2) !important;
 }
 
-.results-section {
-  flex: 1;
-  padding: 0;
+.monument-map-container .mm-results-section {
+  flex: 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.result-item {
-  padding: 1rem;
-  border-bottom: 1px solid var(--cream);
-  cursor: pointer;
-  transition: all 0.3s ease;
+.monument-map-container .mm-result-item {
+  padding: 1rem !important;
+  border-bottom: 1px solid var(--cream) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
 }
 
-.result-item:hover {
-  background: linear-gradient(135deg, var(--cream) 0%, rgba(229, 196, 34, 0.1) 100%);
-  transform: translateX(4px);
+.monument-map-container .mm-result-item:hover {
+  background: linear-gradient(135deg, var(--cream) 0%, rgba(229, 196, 34, 0.1) 100%) !important;
+  transform: translateX(4px) !important;
 }
 
-.result-item.selected {
-  background: linear-gradient(135deg, var(--bright-gold) 0%, var(--accent-gold) 100%);
-  color: var(--white);
+.monument-map-container .mm-result-item.selected {
+  background: linear-gradient(135deg, var(--bright-gold) 0%, var(--accent-gold) 100%) !important;
+  color: var(--white) !important;
 }
 
-.result-item h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.monument-map-container .mm-result-item h3 {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin: 0.25rem 0 !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
 }
 
-.result-item p {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  line-height: 1.4;
+.monument-map-container .mm-result-item p {
+  font-size: 0.9rem !important;
+  opacity: 0.8 !important;
+  line-height: 1.4 !important;
+  margin: 0.25rem 0 !important;
+  padding: 0 !important;
 }
 
-.result-tags {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.monument-map-container .mm-result-tags {
+  margin: 0.5rem 0 0 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
 }
 
-.tag {
-  padding: 2px 8px;
-  background: rgba(31, 48, 86, 0.1);
-  border-radius: 12px;
-  font-size: 0.75rem;
-  color: var(--primary-blue);
+.monument-map-container .mm-tag {
+  padding: 2px 8px !important;
+  background: rgba(31, 48, 86, 0.1) !important;
+  border-radius: 12px !important;
+  font-size: 0.75rem !important;
+  color: var(--primary-blue) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
 }
 
-.result-item.selected .tag {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--white);
+.monument-map-container .mm-result-item.selected .mm-tag {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: var(--white) !important;
 }
 
-.map-container {
-  flex: 1;
-  position: relative;
+.monument-map-container .mm-map-container {
+  flex: 1 !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.leaflet-container {
-  height: 100%;
-  width: 100%;
+.monument-map-container .leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.monument-popup {
-  max-width: 300px;
+.monument-map-container .mm-monument-popup {
+  max-width: 300px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.monument-popup h3 {
-  color: var(--primary-blue);
-  font-size: 1.1rem;
+.monument-map-container .mm-monument-popup h3 {
+  color: var(--primary-blue) !important;
+  font-size: 1.1rem !important;
+  margin: 0 0 0.5rem 0 !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
 }
 
-.monument-popup p {
-  margin: 0.5rem !important;
-  font-size: 0.9rem;
-  line-height: 1.3;
+.monument-map-container .mm-monument-popup p {
+  margin: 0.5rem 0 !important;
+  padding: 0 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.3 !important;
 }
 
-.monument-popup .year {
-  font-weight: 600;
-  color: var(--accent-gold);
+.monument-map-container .mm-monument-popup .mm-year {
+  font-weight: 600 !important;
+  color: var(--accent-gold) !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.monument-popup .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
+.monument-map-container .mm-monument-popup .mm-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.25rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.monument-popup .tag {
-  background: var(--cream);
-  padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 0.7rem;
+.monument-map-container .mm-monument-popup .mm-tag {
+  background: var(--cream) !important;
+  padding: 2px 6px !important;
+  border-radius: 8px !important;
+  font-size: 0.7rem !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  color: var(--accent-gold);
-  font-size: 1.1rem;
+.monument-map-container .mm-loading {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 200px !important;
+  color: var(--accent-gold) !important;
+  font-size: 1.1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Force mobile layout when container is narrow OR screen is small */
@@ -260,122 +310,122 @@ body {
     height: 100vh;
   }
 
-  .header {
-    padding: 0.75rem 1rem;
+  .monument-map-container .mm-header {
+    padding: 0.75rem 1rem !important;
   }
 
-  .header h1 {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
+  .monument-map-container .mm-header h1 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.25rem !important;
   }
 
-  .header p {
-    font-size: 0.85rem;
+  .monument-map-container .mm-header p {
+    font-size: 0.85rem !important;
   }
 
-  .content {
-    flex-direction: column;
-    height: calc(100vh - 80px);
+  .monument-map-container .mm-content {
+    flex-direction: column !important;
+    height: calc(100vh - 80px) !important;
   }
   
-  .sidebar {
-    width: 100%;
-    height: 40vh;
-    min-height: 280px;
-    max-height: 400px;
+  .monument-map-container .mm-sidebar {
+    width: 100% !important;
+    height: 40vh !important;
+    min-height: 280px !important;
+    max-height: 400px !important;
   }
 
-  .search-section {
-    padding: 0.75rem;
+  .monument-map-container .mm-search-section {
+    padding: 0.75rem !important;
   }
 
-  .filter-pills {
-    gap: 0.25rem;
+  .monument-map-container .mm-filter-pills {
+    gap: 0.25rem !important;
   }
 
-  .filter-pill {
-    padding: 5px 10px;
-    font-size: 0.75rem;
+  .monument-map-container .mm-filter-pill {
+    padding: 5px 10px !important;
+    font-size: 0.75rem !important;
   }
 
-  .result-item {
-    padding: 0.75rem;
+  .monument-map-container .mm-result-item {
+    padding: 0.75rem !important;
   }
 
-  .result-item h3 {
-    font-size: 0.95rem;
+  .monument-map-container .mm-result-item h3 {
+    font-size: 0.95rem !important;
   }
 
-  .result-item p {
-    font-size: 0.8rem;
-    line-height: 1.3;
+  .monument-map-container .mm-result-item p {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
   }
   
-  .map-container {
-    height: 60vh;
-    min-height: 320px;
+  .monument-map-container .mm-map-container {
+    height: 60vh !important;
+    min-height: 320px !important;
   }
 
-  .monument-popup {
-    max-width: 250px;
+  .monument-map-container .mm-monument-popup {
+    max-width: 250px !important;
   }
 
-  .monument-popup h3 {
-    font-size: 1rem;
+  .monument-map-container .mm-monument-popup h3 {
+    font-size: 1rem !important;
   }
 
-  .monument-popup p {
-    font-size: 0.85rem;
-    line-height: 1.25;
+  .monument-map-container .mm-monument-popup p {
+    font-size: 0.85rem !important;
+    line-height: 1.25 !important;
   }
 }
 
 @media (max-width: 480px) {
-  .header {
-    padding: 0.5rem;
+  .monument-map-container .mm-header {
+    padding: 0.5rem !important;
   }
 
-  .header h1 {
-    font-size: 1.1rem;
+  .monument-map-container .mm-header h1 {
+    font-size: 1.1rem !important;
   }
 
-  .header p {
-    font-size: 0.8rem;
+  .monument-map-container .mm-header p {
+    font-size: 0.8rem !important;
   }
 
-  .content {
-    height: calc(100vh - 70px);
+  .monument-map-container .mm-content {
+    height: calc(100vh - 70px) !important;
   }
 
-  .sidebar {
-    height: 38vh;
-    min-height: 250px;
-    max-height: 320px;
+  .monument-map-container .mm-sidebar {
+    height: 38vh !important;
+    min-height: 250px !important;
+    max-height: 320px !important;
   }
 
-  .map-container {
-    height: 62vh;
-    min-height: 350px;
+  .monument-map-container .mm-map-container {
+    height: 62vh !important;
+    min-height: 350px !important;
   }
 
-  .search-section {
-    padding: 0.5rem;
+  .monument-map-container .mm-search-section {
+    padding: 0.5rem !important;
   }
 
-  .filter-pill {
-    padding: 4px 8px;
-    font-size: 0.7rem;
+  .monument-map-container .mm-filter-pill {
+    padding: 4px 8px !important;
+    font-size: 0.7rem !important;
   }
 
-  .result-item {
-    padding: 0.5rem;
+  .monument-map-container .mm-result-item {
+    padding: 0.5rem !important;
   }
 
-  .result-item h3 {
-    font-size: 0.9rem;
+  .monument-map-container .mm-result-item h3 {
+    font-size: 0.9rem !important;
   }
 
-  .result-item p {
-    font-size: 0.75rem;
+  .monument-map-container .mm-result-item p {
+    font-size: 0.75rem !important;
   }
 }
