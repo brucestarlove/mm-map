@@ -251,6 +251,8 @@ const MonumentMap = () => {
             ref={mapRef}
             center={[39.8283, -98.5795]}
             zoom={4}
+            maxBounds={[[17.5, -160.0], [50.0, -60.0]]}
+            maxBoundsViscosity={1.0}
             style={{ height: '100%', width: '100%' }}
           >
             <TileLayer
